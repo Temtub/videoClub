@@ -10,7 +10,8 @@ $user = $_POST['user'];
 $pass = $_POST['pass'];
 
 //Check the login
-$data = login_check($user, $pass);
+$loginCheck = login_check($user, $pass);
+
 
 echo $data;
 
