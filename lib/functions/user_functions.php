@@ -15,3 +15,19 @@ function check_rolAdmin($rol){
     }
 }
 
+/**
+ * Function to check if the user and the password are filled
+ * 
+ * @param type $userCheck
+ * @param type $passCheck
+ * @return bool
+ */
+function checkUserAndPasFilled($userCheck, $passCheck){
+    if($userCheck || $passCheck){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+

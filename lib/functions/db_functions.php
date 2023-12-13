@@ -52,10 +52,13 @@ function getUserData($username) {
 
         return $login_sql->fetch();
     } catch (Exception $e) {
+        
         handleException($e);
         return false;
     }
 }
+
+/**************NECESSARY FUNCTIONS **********************/
 
 /**
  * Handle exceptions related to database queries
@@ -67,11 +70,11 @@ function handleException($exception) {
 }
 
 /**
- * Perform login check for the provided username and password
+ * Perform login check for the username and password
  *
  * @param string $inputUser The input username
  * @param string $inputKey The input password
- * @return array|string An array containing user information if login is successful, or an error message otherwise
+ * @return array|bool An array containing user information if login is successful, or false
  */
 function login_check($inputUser, $inputKey) {
     $userInfo = [];
@@ -80,17 +83,25 @@ function login_check($inputUser, $inputKey) {
     $userData = getUserData($inputUser);
 
     if (!$userData) {
-        return "User not found";
+        return false;
     }
 
-    if (verifyUserPassword($inputKey, $userData['password'])) {
-        array_push($userInfo, $userData['id'], $userData['username'], $userData['rol']);
-    } else {
-        return "Invalid password";
+    //Verify the password
+    if (verifyUserPassword($inputKey, $userData['password']) ){//Correct save the user info in the array userinfo
+        
+        $userInfo = array(
+            'id' => $userData['id'],
+            'username' => $userData['username'],
+            'rol' => $userData['rol']
+        );
+    } 
+    else {
+        return false;
     }
 
     return $userInfo;
 }
+
 
 /**
  * Verify the user password against the hashed one

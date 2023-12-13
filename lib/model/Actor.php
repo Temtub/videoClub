@@ -1,18 +1,26 @@
 <?php
 
-require_once './Person.php';
-
-class Actor extends Persona {
-    
+class Actor {
+    private $id;
+    private $nombre;
     private $apellidos;
     private $fotografia;
 
-    public function __construct($id, $username, $apellidos, $fotografia) {
-        //Call father constructor
-        parent::__construct($id, $username);
-        
+    // Constructor
+    public function __construct($id, $nombre, $apellidos, $fotografia) {
+        $this->id = $id;
+        $this->nombre = $nombre;
         $this->apellidos = $apellidos;
         $this->fotografia = $fotografia;
+    }
+
+    // Getters
+    public function getId() {
+        return $this->id;
+    }
+
+    public function getNombre() {
+        return $this->nombre;
     }
 
     public function getApellidos() {
@@ -23,6 +31,15 @@ class Actor extends Persona {
         return $this->fotografia;
     }
 
+    // Setters
+    public function setId($id) {
+        $this->id = $id;
+    }
+
+    public function setNombre($nombre) {
+        $this->nombre = $nombre;
+    }
+
     public function setApellidos($apellidos) {
         $this->apellidos = $apellidos;
     }
@@ -31,4 +48,5 @@ class Actor extends Persona {
         $this->fotografia = $fotografia;
     }
 }
+
 
