@@ -58,6 +58,44 @@ function getUserData($username) {
     }
 }
 
+/**
+ * 
+ * @global PDO $db
+ * @return 
+ */
+function getMoviesList(){
+    global $db;
+    
+    try {
+        //Prepare the statement to select all the movies
+        $sqlMoviesList = $db->prepare("SELECT id, titulo, genero, pais, anyo, cartel FROM `peliculas`");
+        $sqlMoviesList->execute();   
+        
+    } catch (Exception $ex) {
+        echo 'Error en consulta select pelúclas'.$ex->getMessage();
+        $sqlMoviesList = false;
+    }
+    
+    return $sqlMoviesList;
+}
+ 
+
+function getActorsFromMovie($movie){
+    
+    global $db;
+    
+    try {
+        //Prepare the statement to select all the movies
+        $sqlMoviesList = $db->prepare("SELECT id, titulo, genero, pais, anyo, cartel FROM `peliculas`");
+        $sqlMoviesList->execute();   
+        
+    } catch (Exception $ex) {
+        echo 'Error en consulta select pelúclas'.$ex->getMessage();
+        $sqlMoviesList = false;
+    }
+    
+    return $sqlMoviesList;  
+}
 /**************NECESSARY FUNCTIONS **********************/
 
 /**

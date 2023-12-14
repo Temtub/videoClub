@@ -19,6 +19,10 @@
             if(isset($_GET['wrong']) ){
                 echo 'Contraseña o usuario incorrectos';
             }
+            
+            if(isset($_GET['redirected']) ){
+                echo 'Debes iniciar sesión';
+            }
             ?>
             
             <form class="d-flex flex-column w-25 m-auto mt-5" action="./lib/controllers/login.php" method="POST">

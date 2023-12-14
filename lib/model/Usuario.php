@@ -7,7 +7,7 @@ class Usuario implements Serializable {
     private $rol;
 
     // Constructor
-    public function __construct($id, $username, $password, $rol) {
+    public function __construct($id, $username,  $rol, $password = NULL) {
         $this->id = $id;
         $this->username = $username;
         $this->password = $password;

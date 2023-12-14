@@ -12,6 +12,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     //Connect to the db
     db_connect();
 
+    //Check if variables are sended
     if(isset($_POST['user']) ){
         
         $userPost = filter_input(INPUT_POST, 'user');
@@ -19,6 +20,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     else{
        $userCheck = true; 
     }
+    
     if(isset($_POST['pass']) ){
         
         $passPost = filter_input(INPUT_POST, 'pass');
@@ -50,10 +52,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $_SESSION['user'] = $user;
     
     if($user->getRol() === 1){
-        header('Location: ../../pages/adminPage.php');
+        header('Location: ../../pages/adminPages/adminIndex.php');
     }
     else{
-        header('Location: ../../pages/userPage.php');
+        header('Location: ../../pages/clientPages/userIndex.php');
     }
 
     
