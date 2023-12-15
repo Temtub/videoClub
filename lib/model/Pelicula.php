@@ -8,7 +8,9 @@ class Pelicula {
     private $pais;
     private $anyo;
     private $cartel;
-    
+    private $Reparto;
+
+
     public function __construct($id, $titulo, $genero, $pais, $anyo, $cartel) {
         $this->id = $id;
         $this->titulo = $titulo;
@@ -16,6 +18,19 @@ class Pelicula {
         $this->pais = $pais;
         $this->anyo = $anyo;
         $this->cartel = $cartel;
+        
+        //array of actors from the movie
+        $this->Reparto = array();
+    }
+    
+    /**
+     * Function to save an actor in the the array of 
+     * 
+     * @param Actor $actor <p>Actor you want to add in the array</p>
+     */
+    function addActorReparto($actor){
+        
+        array_push($this->Reparto, $actor);
     }
     
     //Getters

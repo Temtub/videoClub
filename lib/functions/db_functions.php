@@ -59,6 +59,7 @@ function getUserData($username) {
 }
 
 /**
+ * Function to bring all the movies from the BD
  * 
  * @global PDO $db
  * @return 
@@ -67,7 +68,7 @@ function getMoviesList(){
     global $db;
     
     try {
-        //Prepare the statement to select all the movies
+        //Prepare the statement to select all the movies from the BD
         $sqlMoviesList = $db->prepare("SELECT id, titulo, genero, pais, anyo, cartel FROM `peliculas`");
         $sqlMoviesList->execute();   
         
@@ -86,8 +87,11 @@ function getActorsFromMovie($movie){
     
     try {
         //Prepare the statement to select all the movies
-        $sqlMoviesList = $db->prepare("SELECT id, titulo, genero, pais, anyo, cartel FROM `peliculas`");
-        $sqlMoviesList->execute();   
+        $sqlMoviesList = $db->prepare("SELECT actores.id, nombre, apellidos, fotografia FROM `actores` JOIN actuan ON actores.id = actuan.idActor JOIN peliculas ON actuan.idPelicula = peliculas.id WHERE peliculas.id = ?");
+        
+        //Bind the param id of the movie we want to search actors of
+        $sqlMoviesList ->bindParam(1, $movie->getId() );
+        $sqlMoviesList->execute();
         
     } catch (Exception $ex) {
         echo 'Error en consulta select pelúclas'.$ex->getMessage();

@@ -30,7 +30,7 @@
         <h1>Bienvenido <?= $user->getUsername()?></h1>
         
         <?php 
-        $arrayMoviesObj =[];
+        $arrayMovies =[];
         
         $errorBd=false;
         
@@ -51,28 +51,41 @@
         if(isset($errorBd) && $errorBd===false){
             
             try {
-                $movies = getMoviesList();
+                //Bring all the movies
+                $sqlMovieLists = getMoviesList();
 
             } catch (Exception $ex) {
                 header('Location: '.$_SERVER['PHP_SERVER'].'?errorList=true');
             }
 
             try {
-                foreach ($movies as $movie){
-                    //Creamos una pelicula
-                    $movie = new Pelicula($movie['id'], $movie['titulo'], $movie['genero'], $movie['pais'], $movie['anyo'], $movie['cartel']);
-                    //Lo guardamos en el array de pelicula
-                    array_push($movie);
+                //For each movie from the sql statement that we made before
+                foreach ($sqlMovieLists as $movie){
                     
-                    //Buscamos sus actores
-                    getActorsFromMovie($movie);
+                    //Create a Pelicula object and save it in the variable $movieObj
+                    $movieObj = new Pelicula($movie['id'], $movie['titulo'], $movie['genero'], $movie['pais'], $movie['anyo'], $movie['cartel']);
+                    
+                    //Save the variable in the array of movies
+                    array_push($arrayMovies, $movieObj);
+                    
+                    //Search the actors from the specified movie movie
+                    $actorsFromMovie = getActorsFromMovie($movieObj);
+                    
+                    //For each actor that we brought
+                    foreach ($actorsFromMovie as $actor){
+                        
+                        //Create an Actor object 
+                        $actorObj = new Actor($actor['id'], $actor['nombres'], $actor['apellidos'], $actor['fotografia']);
+                        
+                        //Save the object in the array
+                        $movie->addActorReparto($actorObj);
+                    }
+                    
                 }
-
             } catch (Exception $ex) {
                 header('Location: '.$_SERVER['PHP_SERVER'].'?errorListA=true');
             }
-        }
-        
+        }//end if 
         ?>
         
     </body>

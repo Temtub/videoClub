@@ -26,24 +26,8 @@
     </head>
     
     <body>
-        <h1>Bienvenido usuario</h1>
-
-        <form action="action">
-            
-            <label>Correo</label>
-            <input type="text" name="name">
-            
-            <label>Cabecera</label>
-            <input type="text" name="name">
-            
-            <label>Cuerpo</label>
-            <textarea id="id" name="name" rows="5" cols="10"></textarea>
-            
-            <input type="submit" name="name">
-            
-            
-        </form>
+        
+        <a href="../clientPages/sendEmailUser.php">Enviar email</a>
+        
     </body>
 </html>
-
-

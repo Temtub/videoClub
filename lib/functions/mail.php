@@ -11,9 +11,9 @@ use PHPMailer\PHPMailer\Exception;
      *  - PHPMailer.php
      *  - SMTP.php
      */
-    require '../PHPMailer/src/Exception.php';
-    require '../PHPMailer/src/PHPMailer.php';
-    require '../PHPMailer/src/SMTP.php';
+    require '../controllers/phpMailer/src/Exception.php';
+    require '../controllers/phpMailer/src/PHPMailer.php';
+    require '../controllers/phpMailer/src/SMTP.php';
     
     if($_SERVER['REQUEST_METHOD'] === 'POST' ){
         
@@ -28,6 +28,9 @@ use PHPMailer\PHPMailer\Exception;
             header('Location: ../../../pages/sendEmailUser.php?email='.$_POST['email'].'&asunto='.$_POST['asunto']);
         }
         
+        if(empty($_POST['email']) || empty($_POST['asunto']) || empty($_POST['cuerpo']) ){
+            header('Location: ../../pages/clientPages/sendEmailUser.php?err&em='.$_POST['email'].'&as='.$_POST['asunto'].'&cu='.$_POST['cuerpo'] );
+        }
         try {
             
             /*
@@ -42,16 +45,16 @@ use PHPMailer\PHPMailer\Exception;
            $mail->SMTPAuth = true; //Autentificación activada
 
 
-           $mail->Username = 'Aqui va tu email'; //Tu gmail
-           $mail->Password = 'Aquí va tu contraseña de aplicación'; //Tu contraseña de aplicación de gamil
+           $mail->Username = ''; //Tu gmail
+           $mail->Password = ''; //Tu contraseña de aplicación de gamil
            $mail->SMTPSecure = 'ssl'; //Tipo de seguridad
            $mail->Port = 465; //Puerto de smtp
            $mail->Timeout = 5;
 
 
-           $mail->setFrom('El correo que envía el mensaje'); //Gmail desde el que se envía el mensaje
+           $mail->setFrom($_POST['email']); //Aqui va el email desde que se envía el correo que se puso en el formulario
 
-           $mail->addAddress($_POST['email']); //El email que recibe el correo
+           $mail->addAddress(''); //AQUI IRIA EL EMAIL DONDE QUIERES QUE SE ENVIE
 
            $mail->isHTML(true); //El mensaje enviado es HTML
 
@@ -78,11 +81,8 @@ use PHPMailer\PHPMailer\Exception;
            }
            
         } catch (Exception $exc) {
-            echo $exc->getMessage();
-        } 
-
-        //Volver a index.php
-        echo '<p><a href="../index.php">Volver</a></p>';
+            echo $exc->getMessage().'AQUIIII';
+        }
         
         
     }//if

@@ -29,20 +29,25 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
        $passCheck = true; 
     }
 
+    if( empty($_POST['pass']) || empty($_POST['user']) || $_POST['pass'] == ' ' || $_POST['user'] == ' '){
+        $passCheck=true;
+        $userCheck=true;
+    }
+    
     //Check if the variables has been setted
     if(checkUserAndPasFilled($userCheck, $passCheck) ){
         header('Location: ../../index.php?errorLog=true');
+        exit();
     }
     
-    //Check the login is correct
-    if(!login_check($userPost, $passPost) ){
-        echo 'mal';
-        header('Location: ../../index.php?wrong=true'); 
+     // Check if the login is correct
+    if (!login_check($userPost, $passPost)) {
+        header('Location: ../../index.php?wrong=true');
+        exit();
     }
-    else{
-        echo 'bien';
-        $userFinished = login_check($userPost, $passPost);
-    }
+
+    // Successful login
+    $userFinished = login_check($userPost, $passPost);
     
     //Guardamos el objeto de usuario
     $user = new Usuario($userFinished['id'], $userFinished['username'], $userFinished['rol']);
