@@ -15,22 +15,26 @@
     if(!isset($_SESSION["user"])){
         header("Location: ../../index.php?redirected=true");
     }
-    
-//If want to activate the inactivity close session, uncomment this
-//    if (isset($_SESSION["last_activity"])){
-//        check_inactivity($_SESSION["last_activity"]);
-//    }
-    
     $user = $_SESSION['user'];
+    
+    if($user->getRol() !== 1){
+        header("Location: ../../index.php?redirected=true");
+    }
+    
+    updateLastLoginTime();
+    
+    
+    
+    
 ?>
-<html>
+<html lang="es">
     <head>
         <meta charset="UTF-8">
         <title>Video club</title>
         
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
-        <link rel="stylesheet" href="../../css/styles.css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+        <link rel="stylesheet" href="../../css/styles.css">
     </head>
     
     <body>
@@ -43,16 +47,24 @@
         include '../../lib/controllers/includes/header.php';
         
         if(isset($_GET['err']) ){
-            echo 'error en eliminacion';
+            echo '<div class="message message-error"><p class="message__text">Ha habido un error con la eliminación.</p></div>';
         }
-        if(isset($_GET['del']) ){
-            echo 'eliminado correctamente';
+        if(isset($_GET['deleted']) ){
+            echo '<div class="message message-correct"><p class="message__text">Se ha eliminado la película correctamente.</p></div>';
         }
+
+
         
+        if(isset($_COOKIE['last_login_time'])) {
+            // Obtener y mostrar el valor de la cookie
+            $last_login_time = $_COOKIE['last_login_time'];
+            echo '<div class="message message--big message-informative"><p class="message__text">Última hora de inicio de sesión fue el: <span class="message__hora">' . date("d", $last_login_time) . '</span> del <span class="message__hora">' . date("m", $last_login_time) . '</span> a las <span class="message__hora">' . date("H:i", $last_login_time).'</span></p></div>';
+            
+        } else {
+            echo '<div class="message message--big message-informative"><p class="message__text">Hola '.$user->getUsername().' es tu primera conexión desde hace una semana.</p></div>';
+
+        }
         ?>
-        
-        
-        <h1>Bienvenido <?= $user->getUsername()?></h1>
         
         <!-- Code for geting the movies -->
         <?php 

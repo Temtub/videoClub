@@ -29,8 +29,9 @@ use PHPMailer\PHPMailer\Exception;
         }
         
         if(empty($_POST['email']) || empty($_POST['asunto']) || empty($_POST['cuerpo']) ){
-            header('Location: ../../pages/clientPages/sendEmailUser.php?err&em='.$_POST['email'].'&as='.$_POST['asunto'].'&cu='.$_POST['cuerpo'] );
+            header('Location: ../../pages/clientPages/sendEmailUser.php?redir&em='.$_POST['email'].'&as='.$_POST['asunto'].'&cu='.$_POST['cuerpo'] );
         }
+        
         try {
             
             /*
@@ -77,11 +78,13 @@ use PHPMailer\PHPMailer\Exception;
            if($exito != 1){
                throw new Exception('Error en el envio: Alguno de los datos no es correcto');
            }else{
-               echo '<p>El mensaje se envió con exíto</p>';
+                header('Location: ../../pages/clientPages/sendEmailUser.php?corr');
            }
            
         } catch (Exception $exc) {
-            echo $exc->getMessage().'AQUIIII';
+            //echo $exc->getMessage().'AQUIIII';
+            header('Location: ../../pages/clientPages/sendEmailUser.php?err');
+
         }
         
         

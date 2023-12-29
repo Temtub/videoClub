@@ -15,12 +15,10 @@
         header("Location: ../../index.php?redirected=true");
     }
     
-//If want to activate the inactivity close session, uncomment this
-//    if (isset($_SESSION["last_activity"])){
-//        check_inactivity($_SESSION["last_activity"]);
-//    }
-    
     $user = $_SESSION['user'];
+    if ($user->getRol() !== 1) {
+        header("Location: ../../index.php?redirected=true");
+    }
     
     
     if(!isset($_GET['id']) || empty($_GET['id']) ){

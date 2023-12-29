@@ -108,19 +108,19 @@ function generateCardButtons($movie) {
     $buttons .= '<button type="button" class="modifyButton" data-bs-toggle="modal" data-bs-target="#deleteConfirmation' . $movie->getId() . '"><i class="fa-solid fa-trash"></i> Eliminar</button>';
     
     // Edit Button
-    $buttons .= '<a class="modifyButton modifyButton--edit" href="../../pages/adminPages/updateMoviePage.php?id='.$movie->getId().'&titulo='.$movie->getTitulo().'&genero='.$movie->getGenero().'&pais='.$movie->getPais().'&anyo='.$movie->getAnyo().'&cartel='.$movie->getCartel().'"><i class="fa-solid fa-pencil"></i>Editar</a>';
+    $buttons .= '<a class="modifyButton modifyButton--edit" href="../../pages/adminPages/updateMoviePage.php?id='. urlencode($movie->getId()).'&titulo='.urlencode($movie->getTitulo()).'&genero='.urlencode($movie->getGenero()).'&pais='.urlencode($movie->getPais()).'&anyo='.urlencode($movie->getAnyo()).'&cartel='.urlencode($movie->getCartel()).'"><i class="fa-solid fa-pencil"></i>Modificar</a>';
     
     // Delete Confirmation Modal
     $buttons .= 
-         '<div class="modal fade" id="deleteConfirmation' . $movie->getId() . '" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+         '<div class="modal fade" id="deleteConfirmation' . $movie->getId() . '" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel'.$movie->getId().'" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="staticBackdropLabel">¿Seguro que quieres eliminar el hilo?</h1>
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel'.$movie->getId().'">¿Seguro que quieres eliminar la película?</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <p>Vas a eliminar el hilo con título "' . $movie->getTitulo() . '".</p>
+                        <p>Vas a eliminar la película con título "' . $movie->getTitulo() . '".</p>
                         <p>¿Seguro?</p>
                     </div>
                     <div class="modal-footer">

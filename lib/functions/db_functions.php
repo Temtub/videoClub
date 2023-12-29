@@ -152,6 +152,11 @@ function deleteActuan($movieId){
     }
 }
 
+/**
+ * Function to delete all the actors from a movie</p>
+ * @global PDO $db <p>The BD of the program</p>
+ * @param Integer $movieId <p>The id of the movie to delete the actors</p>
+ */
 function deleteActores($movieId){
     
     //Open the connection
@@ -178,29 +183,38 @@ function deleteActores($movieId){
 
 /******************CREATE FUNCTIONS**************************/
 
+/**
+ * Creates a new movie entry in the database with the given details
+ * @global PDO $db
+ * @param string $titulo <p>The title of the movie.</p>
+ * @param string $genero <p>The genre of the movie.</p>
+ * @param string $pais <p>The country of origin of the movie.</p>
+ * @param int $anyo <p>The release year of the movie.</p>
+ * @param string $cartel <p>The URL or path to the movie poster image.</p>
+ */
 function createMovie($titulo, $genero, $pais, $anyo, $cartel) {
-    // Open the connection
+    // Open the database connection
     global $db;
     db_connect();
 
-    // Statements to create the movie in the database
+    // Prepare SQL statement to create the movie in the database
     $createMovieStatement = $db->prepare("INSERT INTO `peliculas` (`titulo`, `genero`, `pais`, `anyo`, `cartel`) VALUES (?, ?, ?, ?, ?)");
 
-    // Trim values
+    // Trim input values
     $titulo = trim($titulo);
     $genero = trim($genero);
     $pais = trim($pais);
     $anyo = trim($anyo);
     $cartel = trim($cartel);
 
-    // Bind parameters
+    // Bind parameters to the prepared statement
     $createMovieStatement->bindParam(1, $titulo);
     $createMovieStatement->bindParam(2, $genero);
     $createMovieStatement->bindParam(3, $pais);
     $createMovieStatement->bindParam(4, $anyo);
     $createMovieStatement->bindParam(5, $cartel);
 
-    // Execute the statement
+    // Execute the prepared statement
     if ($createMovieStatement->execute()) {
         // Redirect on success
         header('Location: ../../../pages/adminPages/createMoviePage.php?corr');
@@ -220,15 +234,31 @@ function createMovie($titulo, $genero, $pais, $anyo, $cartel) {
 
 /******************UPDATE FUNCTIONS**************************/
 
-function updateMovie($id, $titulo, $genero, $pais, $anyo, $cartel){
-    // Open the connection
+/**
+ * Updates an existing movie entry in the database with the given details.
+ *
+ * This function modifies the information of an existing movie in the 'peliculas' table of the database,
+ * including its title, genre, country of origin, release year, and the URL or path to the movie poster image.
+ *
+ * @global PDO $db <p>The global PDO database connection object.</p>
+ * @param int $id <p>The unique identifier of the movie to be updated.</p>
+ * @param string $titulo <p>The updated title of the movie.</p>
+ * @param string $genero <p>The updated genre of the movie.</p>
+ * @param string $pais <p>The updated country of origin of the movie.</p>
+ * @param int $anyo <p>The updated release year of the movie.</p>
+ * @param string $cartel <p>The updated URL or path to the movie poster image.</p>
+ *
+ * @return void <p>This function redirects to the updateMoviePage.php page with a success or error message.</p>
+ */
+function updateMovie($id, $titulo, $genero, $pais, $anyo, $cartel) {
+    // Open the database connection
     global $db;
     db_connect();
 
-    // Statements to create the movie in the database
+    // Prepare SQL statement to update the movie in the database
     $updateMovieStatement = $db->prepare("UPDATE `peliculas` SET `titulo` = ?, `genero` = ?, `pais` = ?, `anyo` = ?, `cartel` = ? WHERE `peliculas`.`id` = ?");
 
-    // Trim values
+    // Trim input values
     $id = trim($id);
     $titulo = trim($titulo);
     $genero = trim($genero);
@@ -236,7 +266,7 @@ function updateMovie($id, $titulo, $genero, $pais, $anyo, $cartel){
     $anyo = trim($anyo);
     $cartel = trim($cartel);
 
-    // Bind parameters
+    // Bind parameters to the prepared statement
     $updateMovieStatement->bindParam(1, $titulo);
     $updateMovieStatement->bindParam(2, $genero);
     $updateMovieStatement->bindParam(3, $pais);
@@ -244,7 +274,7 @@ function updateMovie($id, $titulo, $genero, $pais, $anyo, $cartel){
     $updateMovieStatement->bindParam(5, $cartel);
     $updateMovieStatement->bindParam(6, $id);
     
-    // Execute the statement
+    // Execute the prepared statement
     if ($updateMovieStatement->execute()) {
         // Redirect on success
         header('Location: ../../../pages/adminPages/updateMoviePage.php?corr');
@@ -255,6 +285,7 @@ function updateMovie($id, $titulo, $genero, $pais, $anyo, $cartel){
         exit();
     }
 }
+
 /******************END UPDATE FUNCTIONS**************************/
 
 

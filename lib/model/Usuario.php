@@ -48,7 +48,7 @@ class Usuario implements Serializable {
         $this->rol = $rol;
     }
 
-    // Implementación de la interfaz Serializable
+    //Serializable implementation
     public function serialize() {
         return serialize([
             $this->id,

@@ -17,8 +17,55 @@
     background-repeat: repeat;
     background-size: contain;
     
-    min-height: 100vh;
+    min-height: 110vh;
+    padding: 0;
 }
+.indexCont{
+    margin-top: -50px;
+    
+    padding-top: 100px;
+}
+
+/**********************MESSAGES*********/
+
+.message{
+    width: 30%;
+    border-radius: 50px;
+    padding: 15px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 3px 3px 1px 4px black;
+    font-family: Altone;
+    font-size: 1.2rem;
+
+    margin: auto;
+}
+.message-error{
+    background-color: #F35644;
+}
+.message-correct{
+    background-color: #00945A;
+}
+.message-informative{
+    background-color: #522AB1;
+}
+.message__text{
+    height: 20px;
+    margin: 0;
+}
+
+.message--big{
+    width: 50%;
+}
+
+.message__hora{
+    font-family: Helvetica;
+}
+/**********************END MESSAGES*********/
+
+
 
 
 /***********************FORM*************/
@@ -67,6 +114,10 @@
 .form__inputs--pink{
     background-color: #F278A1;
 }
+.form__inputs--blue{
+    background-color: #0487CE;
+
+}
 .form__label{
     text-align: center;
     border-top: 2px solid;
@@ -89,14 +140,60 @@
 
 
 /***********************NAV*************/
+.navbar__{
+    background-color: #ffffff !important;
 
+    position: fixed;
+    top: 0; 
+    z-index: 10;
+    transform: translateX(30%);
+
+    border-radius: 0px 0px 10px 10px;
+    width: 60%;
+
+    padding-left: 20px;
+    padding-right: 20px;
+
+    box-shadow: 3px 3px 1px 4px black;
+
+}
 .nav__title{
     font-family: Pilowa;
     font-size: 3rem;
     color: #F5BD63;
     text-shadow: 3px 3px 0px rgba(0,0,0,1);
 }
+.nav-link{
+    font-family: Altone;
+    font-weight: 900;
+}
+.nav-link:hover{
+    color: rgb(224, 224, 224);
+}
 
+.spacer{
+    height: 150px;
+}
+
+.nav__form{
+    box-shadow: 3px 3px 1px 4px black;
+    border-radius: 50px;
+    padding: 5px;
+}
+.nav__formControl{
+    border-radius: 10px 0px 0px 10px;
+    border: none;
+}
+.form-control:focus{
+    border: none;
+}
+.form-control:active{
+    border: none;
+}
+.btn__form{
+    border-radius: 0px 10px 10px 0px;
+    border: none;
+}
 /***********************END NAV*************/
 
 
@@ -120,8 +217,10 @@
 .card__title{
     font-family: Altone;
     font-size: 1.5rem; 
-    font-weight: 900
-    //text-shadow: 2px 2px 0px black;
+    font-weight: 900;
+
+    /*text-shadow: 2px 2px 0px black;*/
+
     color: #F278A1;
 }
 .cardPlus{
@@ -185,6 +284,12 @@
 }
 /***********************END CARD*************/
 
+
+.footerPages{
+    margin: 0;
+    margin-top: 50px !important; 
+    
+}
 
 
 

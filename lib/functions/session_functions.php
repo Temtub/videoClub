@@ -20,31 +20,19 @@ function set_session_option($duration = SHORT){
  * @param integer $last_activity Last time of activity user  
  *
  */
-function check_inactivity($last_activity){
-    //Save the actual date
+function updateLastLoginTime() {
+    // Obtener la hora actual
     $current_time = time();
     
-    if(isset($_COOKIE["session_option"]) &&  $_COOKIE["session_option"] == EXTENDED){
-        $duration = EXTENDED;
-    }else{
-        $duration = SHORT;
-    }
-    
-    //if time of inactivity is higher than 5 minutes or 1 hour the session is closed
-    if(($current_time - $last_activity) >= $duration) {
-        // clean the session array
-        $_SESSION = array();
-        // destroy the session
-        session_destroy();
-        // delete the session cookie
-        setcookie(session_name(),"", time()-1000,"/");
-        
-        header("Location: ../../../public_html/index.php?timePass=TRUE");
- 
-    } else {
-        $_SESSION["last_activity"] = $current_time;
-    }
+    $cookieName = "last_login_time";//The cookie name
+
+    $cookieExpirationTime = $current_time + (7 * 24 * 60 * 60); // 1 week
+
+    //Set the cookie with the values
+    setcookie($cookieName, $current_time, $cookieExpirationTime, "/");
 }
+
+
 
 
 /**

@@ -1,31 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
     <head>
         <meta charset="UTF-8">
         <title>Video club</title>
         
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-        <link rel="stylesheet" href="./css/styles.css"/>
+        <link rel="stylesheet" href="./css/styles.css">
     </head>
     <body>
         
-        <div class="container-fluid">
+        <div class="container-fluid indexCont">
             
             <?php
             //Check errors
             if(isset($_GET['errorLog']) ){
-                echo 'Inicia sesión';
+                echo '<div class="message message-error"><p class="message__text">Debes de iniciar sesión.</p></div>';
             }
             
             if(isset($_GET['wrong']) ){
-                echo 'Contraseña o usuario incorrectos';
+                echo '<div class="message message-error"><p class="message__text">Contraseña o usuario incorrectos.</p></div>';
             }
             
             if(isset($_GET['redirected']) ){
-                echo 'Debes iniciar sesión';
+                echo '<div class="message message-error"><p class="message__text">Debes de iniciar sesión.</p></div>';
             }
             ?>
-            
+        
             <form class="form d-flex flex-column align-items-center w-25 m-auto mt-5" action="./lib/controllers/login.php" method="POST">
                 
                 <h2 class="form__subtitle">INICIA SESION</h2>
@@ -38,7 +38,7 @@
                 
 
                 <div class="d-flex flex-column form__inputs">  
-                    <input class="form__input form__inputs--pink" type="text" name="pass">
+                    <input class="form__input form__inputs--pink" type="password" name="pass">
                     <label class="form__label">CONTRASEÑA</label>
                 </div>
                 
