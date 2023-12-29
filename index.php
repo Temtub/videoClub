@@ -5,13 +5,14 @@
         <title>Video club</title>
         
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <link rel="stylesheet" href="./css/styles.css"/>
     </head>
     <body>
         
         <div class="container-fluid">
             
             <?php
-            //Comprobar errores pasados
+            //Check errors
             if(isset($_GET['errorLog']) ){
                 echo 'Inicia sesión';
             }
@@ -25,13 +26,23 @@
             }
             ?>
             
-            <form class="d-flex flex-column w-25 m-auto mt-5" action="./lib/controllers/login.php" method="POST">
+            <form class="form d-flex flex-column align-items-center w-25 m-auto mt-5" action="./lib/controllers/login.php" method="POST">
                 
-                <input type="text" name="user">
+                <h2 class="form__subtitle">INICIA SESION</h2>
+                <h1 class="form__title">VIDREO</h1>
                 
-                <input type="password" name="pass">
+                <div class="d-flex flex-column form__inputs">  
+                    <input class="form__input" type="text" name="user">
+                    <label class="form__label">USUARIO</label>
+                </div>
                 
-                <input type="submit" name="sub">
+
+                <div class="d-flex flex-column form__inputs">  
+                    <input class="form__input form__inputs--pink" type="text" name="pass">
+                    <label class="form__label">CONTRASEÑA</label>
+                </div>
+                
+                <input class="form__submit" type="submit" name="sub">
             </form>
         </div>
         

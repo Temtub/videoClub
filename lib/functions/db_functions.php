@@ -59,10 +59,9 @@ function getUserData($username) {
 }
 
 /**
- * Function to bring all the movies from the BD
- * 
- * @global PDO $db
- * @return 
+ * Function to select all the movies from the BD
+ * @global PDO $db <p>BD of the program</p>
+ * @return bool <p>List of the movies of the bd when on true or false on error</p>
  */
 function getMoviesList(){
     global $db;
@@ -70,6 +69,7 @@ function getMoviesList(){
     try {
         //Prepare the statement to select all the movies from the BD
         $sqlMoviesList = $db->prepare("SELECT id, titulo, genero, pais, anyo, cartel FROM `peliculas`");
+        //execute the selection
         $sqlMoviesList->execute();   
         
     } catch (Exception $ex) {
@@ -81,6 +81,12 @@ function getMoviesList(){
 }
  
 
+/**
+ * Search the actors that works on a specific movie
+ * @global PDO $db <p>The BD of the program </p>
+ * @param Pelicula $movie <p>Object type Pelicula that will search his actors</p>
+ * @return bool <p>returns a list of the actors that work in a movie on true or flase on error 
+ */
 function getActorsFromMovie($movie){
     
     global $db;
@@ -89,8 +95,11 @@ function getActorsFromMovie($movie){
         //Prepare the statement to select all the movies
         $sqlMoviesList = $db->prepare("SELECT actores.id, nombre, apellidos, fotografia FROM `actores` JOIN actuan ON actores.id = actuan.idActor JOIN peliculas ON actuan.idPelicula = peliculas.id WHERE peliculas.id = ?");
         
+        //Save the id of the movie
+        $idMovie = $movie->getId();
+        
         //Bind the param id of the movie we want to search actors of
-        $sqlMoviesList ->bindParam(1, $movie->getId() );
+        $sqlMoviesList ->bindParam(1, $idMovie);
         $sqlMoviesList->execute();
         
     } catch (Exception $ex) {
@@ -100,6 +109,157 @@ function getActorsFromMovie($movie){
     
     return $sqlMoviesList;  
 }
+
+/*******************DELETE FUNCTIONS***************************/
+
+function deleteMovie($movieId){
+    
+    //Open the connection
+    global $db;
+    db_connect();
+
+    //Prepare the statement for deleting
+    $deleteMovie= $db->prepare("DELETE FROM peliculas WHERE id =?");
+    
+    $deleteMovie->bindParam(1, $movieId );
+    
+    //If the delete goes well it returns you with vraible correct
+    if($deleteMovie->execute() ){
+        //header('Location: ../../../pages/adminPages/adminIndex.php?del');
+    }
+    else{
+        //header('Location: ../../../pages/adminPages/adminIndex.php?err');
+    }
+}
+
+function deleteActuan($movieId){
+    
+    //Open the connection
+    global $db;
+    db_connect();
+
+    //Prepare the statement for deleting
+    $deleteMovie= $db->prepare("DELETE actuan FROM actuan WHERE actuan.idPelicula =?");
+    
+    $deleteMovie->bindParam(1, $movieId );
+    
+    //If the delete goes well it returns you with vraible correct
+    if($deleteMovie->execute() ){
+        //header('Location: ../../../pages/adminPages/adminIndex.php?del');
+    }
+    else{
+        //header('Location: ../../../pages/adminPages/adminIndex.php?err');
+    }
+}
+
+function deleteActores($movieId){
+    
+    //Open the connection
+    global $db;
+    db_connect();
+
+    //Prepare the statement for deleting
+    $deleteMovie= $db->prepare("DELETE actores FROM actores JOIN actuan ON actores.id = actuan.idActor WHERE actuan.idPelicula =?");
+    
+    $deleteMovie->bindParam(1, $movieId );
+    
+    //If the delete goes well it returns you with vraible correct
+    if($deleteMovie->execute() ){
+        //header('Location: ../../../pages/adminPages/adminIndex.php?del');
+    }
+    else{
+        //header('Location: ../../../pages/adminPages/adminIndex.php?err');
+    }
+}
+/*******************END DELETE FUNCTIONS***************************/
+
+
+
+
+/******************CREATE FUNCTIONS**************************/
+
+function createMovie($titulo, $genero, $pais, $anyo, $cartel) {
+    // Open the connection
+    global $db;
+    db_connect();
+
+    // Statements to create the movie in the database
+    $createMovieStatement = $db->prepare("INSERT INTO `peliculas` (`titulo`, `genero`, `pais`, `anyo`, `cartel`) VALUES (?, ?, ?, ?, ?)");
+
+    // Trim values
+    $titulo = trim($titulo);
+    $genero = trim($genero);
+    $pais = trim($pais);
+    $anyo = trim($anyo);
+    $cartel = trim($cartel);
+
+    // Bind parameters
+    $createMovieStatement->bindParam(1, $titulo);
+    $createMovieStatement->bindParam(2, $genero);
+    $createMovieStatement->bindParam(3, $pais);
+    $createMovieStatement->bindParam(4, $anyo);
+    $createMovieStatement->bindParam(5, $cartel);
+
+    // Execute the statement
+    if ($createMovieStatement->execute()) {
+        // Redirect on success
+        header('Location: ../../../pages/adminPages/createMoviePage.php?corr');
+        exit();
+    } else {
+        // Redirect on failure
+        header('Location: ../../../pages/adminPages/createMoviePage.php?err');
+        exit();
+    }
+}
+
+/******************END CREATE FUNCTIONS**************************/
+
+
+
+
+
+/******************UPDATE FUNCTIONS**************************/
+
+function updateMovie($id, $titulo, $genero, $pais, $anyo, $cartel){
+    // Open the connection
+    global $db;
+    db_connect();
+
+    // Statements to create the movie in the database
+    $updateMovieStatement = $db->prepare("UPDATE `peliculas` SET `titulo` = ?, `genero` = ?, `pais` = ?, `anyo` = ?, `cartel` = ? WHERE `peliculas`.`id` = ?");
+
+    // Trim values
+    $id = trim($id);
+    $titulo = trim($titulo);
+    $genero = trim($genero);
+    $pais = trim($pais);
+    $anyo = trim($anyo);
+    $cartel = trim($cartel);
+
+    // Bind parameters
+    $updateMovieStatement->bindParam(1, $titulo);
+    $updateMovieStatement->bindParam(2, $genero);
+    $updateMovieStatement->bindParam(3, $pais);
+    $updateMovieStatement->bindParam(4, $anyo);
+    $updateMovieStatement->bindParam(5, $cartel);
+    $updateMovieStatement->bindParam(6, $id);
+    
+    // Execute the statement
+    if ($updateMovieStatement->execute()) {
+        // Redirect on success
+        header('Location: ../../../pages/adminPages/updateMoviePage.php?corr');
+        exit();
+    } else {
+        // Redirect on failure
+        header('Location: ../../../pages/adminPages/updateMoviePage.php?err');
+        exit();
+    }
+}
+/******************END UPDATE FUNCTIONS**************************/
+
+
+
+
 /**************NECESSARY FUNCTIONS **********************/
 
 /**

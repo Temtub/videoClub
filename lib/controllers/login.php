@@ -1,8 +1,10 @@
 <?php
 
-require $_SERVER['DOCUMENT_ROOT'] . '\videoClubRodrigo\lib\functions\db_functions.php';
-require $_SERVER['DOCUMENT_ROOT'] . '\videoClubRodrigo\lib\functions\user_functions.php';
-require $_SERVER['DOCUMENT_ROOT'] . '\videoClubRodrigo\lib\model\Usuario.php';
+require $_SERVER['DOCUMENT_ROOT'] . '\videoclub\lib\functions\db_functions.php';
+require $_SERVER['DOCUMENT_ROOT'] . '\videoclub\lib\functions\user_functions.php';
+
+require $_SERVER['DOCUMENT_ROOT'] . '\videoclub\lib\model\Usuario.php';
+require $_SERVER['DOCUMENT_ROOT'] . '\videoclub\lib\model\Pelicula.php';
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
     

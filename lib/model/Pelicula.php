@@ -1,6 +1,6 @@
 <?php
 
-class Pelicula {
+class Pelicula implements Serializable{
 
     private $id;
     private $titulo;
@@ -8,7 +8,7 @@ class Pelicula {
     private $pais;
     private $anyo;
     private $cartel;
-    private $Reparto;
+    private $reparto;
 
 
     public function __construct($id, $titulo, $genero, $pais, $anyo, $cartel) {
@@ -20,17 +20,16 @@ class Pelicula {
         $this->cartel = $cartel;
         
         //array of actors from the movie
-        $this->Reparto = array();
+        $this->reparto = array();
     }
     
     /**
      * Function to save an actor in the the array of 
-     * 
      * @param Actor $actor <p>Actor you want to add in the array</p>
      */
     function addActorReparto($actor){
         
-        array_push($this->Reparto, $actor);
+        array_push($this->reparto, $actor);
     }
     
     //Getters
@@ -58,8 +57,12 @@ class Pelicula {
         return $this->cartel;
     }
     
+    public function getReparto() {
+        return $this->reparto;
+    }
+    
+    
     //Setters
-
     public function setId($id): void {
         $this->id = $id;
     }
@@ -84,4 +87,28 @@ class Pelicula {
         $this->cartel = $cartel;
     }
 
+    //Functions to make the object serializable
+    public function serialize() {
+        return serialize([
+            $this->id,
+            $this->titulo,
+            $this->genero,
+            $this->pais,
+            $this->anyo,
+            $this->cartel,
+            $this->reparto
+        ]);
+    }
+
+    public function unserialize($serialized) {
+        list(
+            $this->id,
+            $this->titulo,
+            $this->genero,
+            $this->pais,
+            $this->anyo,
+            $this->cartel,
+            $this->reparto
+        ) = unserialize($serialized);
+    }
 }

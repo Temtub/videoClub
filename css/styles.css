@@ -1,0 +1,192 @@
+
+@font-face{
+    font-family: "Pilowa";
+    src: url("../lib/assets/fonts/pilowlava-master/Fonts/Pilowlava-Regular.otf");
+}
+@font-face{
+    font-family: "Altone";
+    src: url("../lib/assets/fonts/AltoneTrial-Regular.ttf");
+}
+
+.imgBluRay{
+    width: 25%;
+}
+
+.container-fluid{
+    background-image: url("../lib/assets/images/yellowBg.png");
+    background-repeat: repeat;
+    background-size: contain;
+    
+    min-height: 100vh;
+}
+
+
+/***********************FORM*************/
+
+.form{
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px; 
+    
+    box-shadow: 3px 3px 1px 4px black;
+}
+
+.form__title{
+    font-family: Pilowa;
+    font-size: 4rem;
+    margin-top: -20px;
+    color: #F5BD63;
+    text-shadow: 3px 3px 0px rgba(0,0,0,1);
+}
+.form__subtitle{
+    font-family: Altone;
+    font-size: 2rem;
+    font-weight: 900;
+}
+
+.form__inputs{
+    border: 2px solid;
+    border-radius: 5px;
+    margin: 10px;
+    
+    width: 60%;
+}
+
+.form__input{
+    background-color: #00945A;
+    height: 40px;
+    border: none;
+}
+.form__input:focus{
+    border: none;
+}
+.form__input:active{
+    border: none;
+}
+
+.form__inputs--pink{
+    background-color: #F278A1;
+}
+.form__label{
+    text-align: center;
+    border-top: 2px solid;
+    font-family: Altone;
+    font-weight: 900;
+}
+.form__submit{
+    background-color: #F35644;
+    border: 2px solid;
+ 
+    border-radius: 5px;
+    margin: 10px;
+    height: 40px;
+    width: 60%;
+}
+
+/***********************END FORM*************/
+
+
+
+
+/***********************NAV*************/
+
+.nav__title{
+    font-family: Pilowa;
+    font-size: 3rem;
+    color: #F5BD63;
+    text-shadow: 3px 3px 0px rgba(0,0,0,1);
+}
+
+/***********************END NAV*************/
+
+
+
+
+/***********************CARD*************/
+
+.allCards{
+    width: 70%;
+    margin: auto;
+}
+
+.card{
+    background-color: white;
+    border-radius: 10px; 
+    
+    box-shadow: 3px 3px 1px 4px black;
+    
+    margin-top: 20px;
+}
+.card__title{
+    font-family: Altone;
+    font-size: 1.5rem; 
+    font-weight: 900
+    //text-shadow: 2px 2px 0px black;
+    color: #F278A1;
+}
+.cardPlus{
+    width:18rem;
+    text-decoration: none;  
+    background-color: white;
+    transition: all .5s;
+}
+.cardPlus:hover{
+    background-color: #ffde96;
+}
+.card__plus{
+    font-size: 8rem;
+    font-weight: 900;
+    
+    font-family:Altone;
+    
+    color: #F35644;
+    
+}
+
+.modifyButton {
+    color: black;
+    border: 2px solid black;
+    border-radius: 50px;
+    width: 48%;
+    
+    display: flex;
+    flex-direction: row;
+    
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px;
+    
+    margin-top: 10px;
+    
+    text-decoration: none;
+    
+    transition: all .2s;
+}
+
+.modifyButton:hover {
+    background-color: #F35644;
+    
+}
+.modifyButton--edit:hover{
+    background-color: #00945A;
+}
+.modifyButton:hover .fa-solid {
+    color: black;
+    
+}
+
+.fa-solid{
+    color: #F35644;
+    transition: all .5s;
+}
+
+.fa-pencil{
+    color: #00945A;
+}
+/***********************END CARD*************/
+
+
+
+
+
+
